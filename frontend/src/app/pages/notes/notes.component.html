@@ -1,0 +1,27 @@
+<div class="page-wrapper">
+    <section class="notes-count">
+        <p class="notes-count-folder">Notes <span *ngIf="notesCollection?.length > 0">{{ notesCollection.length }}</span></p>
+    </section>
+    <section class="notes-list">
+        <div class="note home-link">
+            <a routerLink="/">Home</a>
+        </div>
+        <div class="note" *ngFor="let note of notesCollection">
+            <a [routerLink]="['/notes', note._id]">{{ note.title }}</a>
+        </div>
+    </section>
+    <section class="current-note">
+        <div class="editor" *ngIf="currentNote">
+            <div class="editor-toolbar"></div>
+            <div class="note-datecreated">
+                <p><strong>Date Created</strong> - <small *ngIf="formattedDate">{{ formattedDate }}</small></p>
+            </div>
+            <div class="note-title">
+                <input type="text" value="{{ currentNote.title }}">
+            </div>
+            <div class="note-text">
+                <input type="text" value="{{ currentNote.text }}">
+            </div>
+        </div>
+    </section>
+</div>

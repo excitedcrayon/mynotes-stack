@@ -8,7 +8,7 @@ const PORT = 3000 || process.env.PORT;
 const app = express();
 app.use(bodyparser.json());
 
-dbConnection();
+dbConnection(); 
 
 /**
  * Server to listen on specified PORT
@@ -41,8 +41,10 @@ app.get('/notes', (req, res) => {
 
 // get one document in the collection using an id
 app.get('/notes/:id', async (req, res) => {
-    const getSingleDocument = await Notes.findById({ _id: req.params.id }).exec();
-    res.json(getSingleDocument).send();
+    try{
+        const getSingleDocument = await Notes.findById({ _id: req.params.id }).exec();
+        res.json(getSingleDocument).send();
+    }catch(error){}
 });
 
 // post a document to the collection
@@ -65,12 +67,16 @@ app.patch('/notes/:id', (req, res) => {
 
 // deleta all documents in the collection
 app.delete('/notes', async (req, res) => {
-    const deleteAllDocuments = await Notes.deleteMany({});
-    res.json(deleteAllDocuments).send();
+    try{
+        const deleteAllDocuments = await Notes.deleteMany({});
+        res.json(deleteAllDocuments).send();
+    }catch(error){}
 });
 
 // delete single document from collection using an id
 app.delete('/notes/:id', async (req, res) => {
-    const deleteOneDocument = await Notes.deleteOne({ _id: req.params.id });
-    res.send(deleteOneDocument).send();
+    try{
+        const deleteOneDocument = await Notes.deleteOne({ _id: req.params.id });
+        res.send(deleteOneDocument).send();
+    }catch(error){}
 });
